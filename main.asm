@@ -18,11 +18,12 @@ main:
 	plb
 	
 	A8
-	stz pal_addr ;set color address to 0
+	stz pal_addr ;$2121 set color address to 0
 	lda #$1f	 ;palette low byte gggrrrrr
-	sta pal_data ;1f = all the red bits
+				 ;1f = all the red bits
+	sta pal_data ;$2122 - write twice
 	lda #$00	 ;palette high byte -bbbbbgg
-	sta pal_data ;store zero for high byte
+	sta pal_data ;$2122
 	
 ;-bbbbbgg gggrrrrr
 ;black = $0000
@@ -33,7 +34,7 @@ main:
 
 ;turn the screen on (end forced blank)
 	lda #$0f
-	sta $2100
+	sta fb_bright ;$2100
 
 ;note, nothing is active on the main screen,
 ;so only the main background color will show.
