@@ -1,4 +1,4 @@
-;macros
+;macros for SNES
 
 
 ;mesen-s can use wdm is as a breakpoint

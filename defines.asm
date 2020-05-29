@@ -1,4 +1,4 @@
-;constants
+;constants for SNES
 
 
 ;KEY_B      = $80 ;Controller1 + 1
@@ -31,16 +31,10 @@ KEY_R      = $0010
 
 
 
-;main layers active
-LAYER1 = 1
-LAYER2 = 2
-LAYER3 = 4
-LAYER4 = 8
-LAYERSP = 16
-LAYER_ALL_OFF = 0
 
 
-;for tiles, upper byte, in 8 bit
+
+;for tiles on a map, upper byte, in 8 bit
 TILE_V_FLIP = $80
 TILE_H_FLIP = $40
 TILE_PRIORITY = $20
@@ -93,19 +87,11 @@ SPR_SIZE_LG = 2
 ;actual dimensions of the size set by 2101, oam_size
 
 
-;for bg3 priority
+
+;for bg3 priority $2105, add this to mode # 0-7
 BG3_BOTTOM = 0	
 BG3_TOP = 8
-
-
-;for bg map_size
-MAP_32_32 = 0
-MAP_64_32 = 1
-MAP_32_64 = 2
-MAP_64_64 = 3
-
-
-;for bg tilesize
+;for bg tilesize $2105
 BG_ALL_8x8 = 0
 BG1_16x16 = $10
 BG2_16x16 = $20
@@ -114,7 +100,14 @@ BG4_16x16 = $80
 BG_ALL_16x16 = $F0
 
 
-;for oam size
+;for bg map_size, $2107, $2108, $2109, $210a
+MAP_32_32 = 0
+MAP_64_32 = 1
+MAP_32_64 = 2
+MAP_64_64 = 3
+
+
+;for oam size $2101
 OAM_8_16 = 0
 OAM_8_32 = $20
 OAM_8_64 = $40
@@ -124,12 +117,13 @@ OAM_32_64 = $a0
 
 
 ;vram increment after the vram write
-;register 2115
+;register $2115
 V_INC_1 = $80
 V_INC_32 = $81
 
 
 ;for main screen or sub screen
+;$212c and $212d
 SCREEN_OFF = 0
 BG1_ON = 1
 BG2_ON = 2
@@ -141,14 +135,14 @@ SPR_ON = $10
 ALL_ON_SCREEN = $1f
 
 
-;for screen bright
+;for screen bright $2100
 FULL_BRIGHT = $0f
 HALF_BRIGHT = $08
 NO_BRIGHT = $00
 FORCE_BLANK = $80
 
 
-;for interrupts controller 4200
+;for interrupts controller $4200
 ;you will also need to cli if you want IRQs
 NO_INTERRUPTS = 0
 NMI_ON = $80
@@ -231,8 +225,8 @@ window_logic_obj = $212b
 
 main_screen = $212c	
 sub_screen = $212d
-;---o 4321
-;o is sprite
+;---o 4321, o is sprites
+
 main_window = $212e
 sub_window = $212f
 
