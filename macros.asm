@@ -3,8 +3,8 @@
 
 ;mesen-s can use wdm is as a breakpoint
 ;for debugging purposes
-.macro WDM_BREAK
-	.byte $42, $00
+.macro WDM_BREAK number
+	.byte $42, number
 .endmacro
 
 
