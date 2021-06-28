@@ -3,7 +3,9 @@
 .p816
 .smart
 
-.include "defines.asm"
+
+.include "regs.asm"
+.include "variables.asm"
 .include "macros.asm"
 .include "init.asm"
 
@@ -13,19 +15,19 @@
 .segment "CODE"
 
 ; enters here in forced blank
-main:
-.a16 ; just a standardized setting from init code
+Main:
+.a16 ; the setting from init code
 .i16
 	phk
 	plb
 	
 	A8
-	stz pal_addr ; $2121 set color address to 0
+	stz CGADD ; $2121 set color address to 0
 	lda #$1f	 ; palette low byte gggrrrrr
 				 ; 1f = all the red bits
-	sta pal_data ; $2122 - write twice
+	sta CGDATA ; $2122 - write twice
 	lda #$00	 ; palette high byte -bbbbbgg
-	sta pal_data ; $2122
+	sta CGDATA ; $2122
 	
 ; -bbbbbgg gggrrrrr
 ; black = $0000
@@ -36,15 +38,37 @@ main:
 
 ; turn the screen on (end forced blank)
 	lda #FULL_BRIGHT ; $0f
-	sta fb_bright ; $2100
+	sta INIDISP ; $2100
 
 ; note, nothing is active on the main screen,
 ; so only the main background color will show.
 ; $212c is the main screen register	
 
-InfiniteLoop:	
-	jmp InfiniteLoop
+
+
+Infinite_Loop:	
+	A8
+	XY16
+	jsr Wait_NMI
 	
+	;code goes here
+
+	jmp Infinite_Loop
+	
+	
+	
+Wait_NMI:
+.a8
+.i16
+;should work fine regardless of size of A
+	lda in_nmi ;load A register with previous in_nmi
+@check_again:	
+	WAI ;wait for an interrupt
+	cmp in_nmi	;compare A to current in_nmi
+				;wait for it to change
+				;make sure it was an nmi interrupt
+	beq @check_again
+	rts
 	
 	
 
