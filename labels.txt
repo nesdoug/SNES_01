@@ -1,8 +1,6 @@
 al 000000 .__ZEROPAGE_LOAD__
 al 000000 .__ZEROPAGE_RUN__
 al 000002 .__ZEROPAGE_SIZE__
-al 8081EC .@check_again
-al 8081EA .Wait_NMI
 al 8081E0 .Infinite_Loop
 al 8081C7 .SpriteUpperEmpty
 al 8081C9 .SpriteEmptyVal
